@@ -1,0 +1,538 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "dsorg",
+    "version": "1.0",
+    "description": "ДС.Организации",
+    "contact": {
+      "name": "Sergei Fisenko",
+      "email": "s.fisenko@bars.group",
+      "url": "example.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "ВМП.Организации"
+    }
+  ],
+  "paths": {
+    "/ds/organizations": {
+      "get": {
+        "summary": "Получение списка организаций",
+        "tags": [
+          "ver1"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LinkOrganization"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-organizations",
+        "description": "Критерии выборки записей из таблицы link_organization:link_organization.is_disabled = 'false'; ",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "1"
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Кол-во страниц\n",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "default": "10"
+            },
+            "in": "query",
+            "name": "pagesize",
+            "description": "Кол-во организаций на странице\n",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [],
+      "post": {
+        "summary": "Добавление новой организации",
+        "operationId": "post-ds-organizations",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkOrganization"
+                }
+              }
+            }
+          },
+          "205": {
+            "description": "Reset Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "description": "Описание логики (Response Code):\n201 - 1.Новая запись в таблице link_organization: link_organization.id_org:seq таблицы link_organization (автоинкремент);link_organization.oid_frmo:LinkOrganization.oid;\nlink_organization.type_org:LinkOrganization.type_id;\nis_disabled:false; \n2. Если в таблице link_organization уже есть запись c oid_frmo = параметр LinkOrganization.oid и link_organization.is_disabled = 'true', тогда не создавать новую запись, а активировать уже существующую (is_disabled = 'false');\n205 - В таблице link_organization уже есть запись с oid_frmo = параметр LinkOrganization.oid и is_disabled = false;\n404 - В таблице ref_organization нет записи с oid = LinkOrganization.oid; ",
+        "tags": [
+          "ver1"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkOrganization"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ds/organizations/info/{oid}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "oid",
+          "in": "path",
+          "required": true,
+          "description": "OID организации"
+        }
+      ],
+      "get": {
+        "summary": "Получение информации об организации по oid",
+        "tags": [
+          "ver1"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "205": {
+            "description": "Reset Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "operationId": "get-organizations-oid",
+        "description": "Описание логики (Response Code):\n200 - Модель Organization, где ref_organization.oid = параметр запроса {oid};\n205 - В таблице link_organization уже есть запись с oid_frmo = параметр {oid} и is_disabled = false;\n404 - В таблице ref_organization нет записи с oid = параметр {oid}\n\n",
+        "parameters": []
+      }
+    },
+    "/ds/organizations/merge": {
+      "post": {
+        "summary": "Объединение организаций",
+        "operationId": "post-ds-organization-merge",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "masteOrg": {
+                      "$ref": "#/components/schemas/LinkOrganization"
+                    },
+                    "slaveOrg": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/components/schemas/LinkOrganization"
+                      }
+                    }
+                  },
+                  "required": [
+                    "masteOrg",
+                    "slaveOrg"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "description": "Описание логики (Response Code):\n200 1. Обновить card.org_checkup_id на значение masterOrg.LinkOrganization.id_org, где card.org_checkup_id = slaveOrg.LinkOrganization.id_org для карт, статус которых (stasus_id) = 1 или 3\n2. Обновить ref_doctor_conclusion.org_id на значение masterOrg.LinkOrganization.id_org, где ref_doctor_conclusion.org_id = slaveOrg.LinkOrganization.id_org для записей с is_enabled = 1\n3. Обновить link_organization.is_disabled на значение true, где link_organization.id_org = slaveOrg.LinkOrganization.id_org;\n409 - masteOrg.LinkOrganization.type_id и один из slaveOrg.LinkOrganization.type_id имеют разные значения;\n\n\n\n\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "masterOrg": {
+                    "$ref": "#/components/schemas/LinkOrganization"
+                  },
+                  "slaveOrg": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "$ref": "#/components/schemas/LinkOrganization"
+                    }
+                  }
+                },
+                "required": [
+                  "masterOrg",
+                  "slaveOrg"
+                ]
+              }
+            }
+          },
+          "description": "masterOrg:головная организация;\nslaveOrg:массив дочерних организаций"
+        },
+        "tags": [
+          "ver1"
+        ]
+      },
+      "parameters": []
+    },
+    "/ds/organizations/{id_org}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id_org",
+          "in": "path",
+          "required": true,
+          "description": "ID организации"
+        }
+      ],
+      "delete": {
+        "summary": "Удаление организации",
+        "operationId": "delete-ds-organizations",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "description": "Удаление организации:\nДля записей link.organization.id_org = парамтр LinkOrganizion.id_org, изменить link_organization.is_disabled на значение 'true' ;",
+        "tags": [
+          "ver1"
+        ]
+      },
+      "put": {
+        "summary": "Обновление организации",
+        "operationId": "put-ds-organizations-id_org",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkOrganization"
+                }
+              }
+            }
+          },
+          "205": {
+            "description": "Reset Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkOrganization"
+              }
+            }
+          }
+        },
+        "description": "Описание логики (Response Code):\n200 - Обновление полей в таблице link_organization: \n1. link_organization.oid_frmo = атрибут LinkOrganiztion.oid для записи, где link_organization.id_org = параметр LinkOrganizion.id_org; \n2. link_organization.type_org = параметр LinkOranization.type_id для записи, где link_organization.id_org = параметр LinkOrganizion.id_org; \n205 - В таблице link_organization уже есть запись с oid_frmo = параметр LinkOrganizion..oid и type_org = параметр LinkOrganizion.type_id и для данной записи \n поле is_disabled = false;\n 404 - В таблице ref_organization нет записи с oid = параметр LinkOrganizion.oid;\n ",
+        "tags": [
+          "ver1"
+        ]
+      }
+    },
+    "/ds/organizations/filter": {
+      "get": {
+        "summary": "Поиск организаций",
+        "tags": [
+          "ver1"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LinkOrganization"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-ds-organizations-filter",
+        "description": "Критерии выборки записей из таблицы link_organization.\nЗаписи в таблицах (ref_oraganization и link_organization) удовлетворяют параметрам запроса:\n1. link_organization.oid_frmo = параметр oid;\n2. ref_organization.regionid = параметр regionId;\n3. ref_organization.namefull = '%параметр name%' OR ref_organization.nameshort = '%параметр name%';\n4. link_organization.type_org = параметр type_id\n5. link_organization.is_disabled = 'false';",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "oid",
+            "description": "OID организации"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "region",
+            "description": "Регион"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "description": "Название организации",
+            "name": "name"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Кол-во страниц с результатами поиска",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "default": "10"
+            },
+            "in": "query",
+            "name": "pagesize",
+            "required": true,
+            "description": "Кол-во организаций на странице "
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "type",
+            "description": "Тип организации"
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/dictionary/territories": {
+      "get": {
+        "summary": "Получение списка регионов и кодов",
+        "tags": [
+          "ver1"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Territory"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-ds-organizations-regions",
+        "description": "Возвращает списка регионов и их кодов"
+      },
+      "parameters": []
+    },
+    "/ds/typesOrg": {
+      "get": {
+        "summary": "Получение типов организаций",
+        "tags": [
+          "ver1"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrganizationType"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-ds-organizations-types",
+        "description": "Возвращает список всех типов организаций"
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "Organization": {
+        "title": "Organization",
+        "description": "Модель Organization (информация об организации из таблицы mz_nsi_directory.ref_organization):\noid:oid_frmo;\nnameShort:nameshort;\nregionId:regionid; \nregionName:regionname; \naddress:addrRegionName+prefixArea+areaName+prefixStreet+streetName+house (если параметр isFederalCity = 'false') или addrRegionName+prefixStreet+streetName+house (если параметр isFederalCity = 'true'). Параметры в результирующей строке разделяются запятой и пробелом; \n",
+        "x-tags": [
+          "ver1"
+        ],
+        "type": "object",
+        "properties": {
+          "oid": {
+            "type": "string",
+            "description": "OID организации"
+          },
+          "nameShort": {
+            "type": "string",
+            "description": "Краткое наименовани"
+          },
+          "regionId": {
+            "type": "integer",
+            "description": "Код региона организации"
+          },
+          "regionName": {
+            "type": "string",
+            "description": "Наименование региона"
+          },
+          "address": {
+            "type": "string",
+            "description": "Адрес организации"
+          }
+        },
+        "required": [
+          "oid",
+          "nameShort",
+          "regionId",
+          "regionName"
+        ]
+      },
+      "LinkOrganization": {
+        "title": "LinkOrganization",
+        "type": "object",
+        "description": "Модель LinkOrganization (записи из таблицы mz_register_sirots.link_organization + доп. инфа по связанным таблицам):\nid_org:link_organization.id_org; \ntype_id:link_organization.type_org;\ntype_name:mz_register_sirots.ref_type_org.name (справочное значение, определяется по link_organization.type_org);\noid:link_organization.oid_frmo;\nnameShort:mz_nsi_directory.ref_organization.nameshort (справочное значение, определяется по link_organization.oid_frmo);\nregionId:mz_nsi_directory.ref_organization.regionid (справочное значение, определяется по link_organization.oid_frmo); \nregionName:mz_nsi_directory.ref_organization.regionname (справочное значение, определяется по link_organization.oid_frmo); \naddress: Формируется по таблице mz_nsi_directory.ref_organization (справочное значение, определяется по link_organization.oid_frmo)\n1. Если параметр isFederalCity = 'false'\naddrRegionName+prefixArea+areaName+prefixStreet+streetName+house\n2. Если параметр isFederalCity = 'true'\naddrRegionName+prefixStreet+streetName+house\nПараметры в результирующей строке разделяются запятой и пробелом; ",
+        "x-tags": [
+          "ver1"
+        ],
+        "properties": {
+          "id_org": {
+            "type": "integer",
+            "description": "Идентификатор организации в таблице link_organization"
+          },
+          "type_id": {
+            "type": "integer",
+            "description": "Тип организации"
+          },
+          "type_name": {
+            "type": "string",
+            "description": "Наименование типа организации"
+          },
+          "oid": {
+            "type": "string",
+            "description": "OID организации"
+          },
+          "nameShort": {
+            "type": "string",
+            "description": "Наименование организации"
+          },
+          "regionId": {
+            "type": "string"
+          },
+          "regionName": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        }
+      },
+      "Territory": {
+        "title": "Territory",
+        "type": "object",
+        "description": "",
+        "x-tags": [
+          "ver1"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "constitutionCode": {
+            "type": "string"
+          },
+          "regionName": {
+            "type": "string"
+          },
+          "codeFo": {
+            "type": "string"
+          },
+          "dateBegin": {
+            "type": "string"
+          },
+          "dateEnd": {
+            "type": "string"
+          }
+        }
+      },
+      "OrganizationType": {
+        "title": "OrganizationType",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор типа организации\n"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наимеование типа органзации\n"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "description": "id:mz_registr_sirots.ref_type_org.id;name:mz_registr_sirots.ref_type_org.name;",
+        "x-tags": [
+          "ver1"
+        ]
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "ver1"
+    }
+  ]
+}
