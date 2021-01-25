@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "dsorg",
+    "title": "vmporg",
     "version": "1.0",
-    "description": "ДС.Организации",
+    "description": "ВМП.Организации",
     "contact": {
       "name": "Sergei Fisenko",
       "email": "s.fisenko@bars.group",
