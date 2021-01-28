@@ -85,7 +85,7 @@
             "description": "Not Found"
           }
         },
-        "description": "Описание логики (Response Code):\n201 - \n1.Новая запись в таблице link_organization: \nlink_organization.id:Автоинкремент;\nlink_organization.oid:LinkOrganization.oid;\nlink_organization_type.type:LinkOrganization.type_id;\nis_disabled:false; \n2. Если в таблице link_organization уже есть запись c oid = параметр LinkOrganization.oid и link_organization.is_disabled = 'true', тогда не создавать новую запись, а активировать уже существующую (is_disabled = 'false');\n\n205 - В таблице link_organization уже есть запись с oid = параметр LinkOrganization.oid и is_disabled = false;\n\n404 - В таблице ref_organization нет записи с oid = LinkOrganization.oid; ",
+        "description": "Описание логики (Response Code):\n201 - \n1.Новая запись в таблице link_organization и link_organization_type:\n\nlink_organization.id = Автоинкремент;\nlink_organization.oid = linkOrganization.oid;\nlink_organization.medinst_code = Автоинкремент;\nlink_organization.child_status = linkOrganization.child_status;\nlink_organization.email= linkOrganization.email;\nlink_organization.site= linkOrganization.site;\nlink_organization.phone= linkOrganization.phone;\nlink_organization.okpo= linkOrganization.okpo;\nlink_organization.ffoms_code= linkOrganization.ffoms_code;\nlink_organization.is_disabled = false.\n\n\nlink_organization_type.id= link_organization.id;\nlink_organization_type.type = linkOrganization.type_id;\nlink_organization_type.mod_date = sysdate.\n\n2. Если в таблице link_organization уже есть запись c oid = параметр linkOrganization.organization.oid и link_organization.is_disabled = 'true', тогда не создавать новую запись, а активировать уже существующую (is_disabled = 'false');\n\n205 - В таблице link_organization уже есть запись с oid = параметр LinkOrganization.oid и is_disabled = false;",
         "tags": [
           "ver1"
         ],
@@ -527,7 +527,7 @@
       "Territory": {
         "title": "Territory",
         "type": "object",
-        "description": "",
+        "description": "Модель Territory (информация о регионах из таблицы mz_nsi_directory.ref_territory)",
         "x-tags": [
           "ver1"
         ],
@@ -569,7 +569,7 @@
           "id",
           "name"
         ],
-        "description": "id: mz_nsi_directory.ref_vmp_org_type.id;\nname: mz_nsi_directory.ref_vmp_org_type.name.",
+        "description": "Модель c типами организаций (информация из таблицы mz_nsi_directory.ref_vmp_org_type)\nid: mz_nsi_directory.ref_vmp_org_type.id;\nname: mz_nsi_directory.ref_vmp_org_type.name.",
         "x-tags": [
           "ver1"
         ]
