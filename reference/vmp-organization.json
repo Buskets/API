@@ -486,13 +486,16 @@
             "description": "Наименование организации"
           },
           "regionId": {
-            "type": "string"
+            "type": "string",
+            "description": "ИД региона"
           },
           "regionName": {
-            "type": "string"
+            "type": "string",
+            "description": "Наименование региона"
           },
           "address": {
-            "type": "string"
+            "type": "string",
+            "description": "Адресс"
           },
           "child_status": {
             "type": "integer",
@@ -533,13 +536,15 @@
         ],
         "properties": {
           "code": {
-            "type": "string"
+            "type": "string",
+            "description": "Код региона"
           },
           "constitutionCode": {
             "type": "string"
           },
           "regionName": {
-            "type": "string"
+            "type": "string",
+            "description": "Наименование региона"
           },
           "codeFo": {
             "type": "string"
