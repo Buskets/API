@@ -36,7 +36,7 @@
             },
             "in": "query",
             "name": "year",
-            "description": "Год",
+            "description": "Год (Должен входить в период действия записи в НСИ)",
             "required": true
           },
           {
@@ -115,7 +115,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileVid"
+                  "$ref": "#/components/schemas/TicketsProfileVid"
                 }
               }
             }
@@ -155,7 +155,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfileVid - mat view"
+                "$ref": "#/components/schemas/ProfileVid"
               }
             }
           }
@@ -178,6 +178,9 @@
       "get": {
         "summary": "Your GET endpoint",
         "tags": [],
+        "operationId": "get-api-TicketProfileVid-TicketId",
+        "description": "Получение заявки на \"Утверждение доступных видов\" по ID",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK",
@@ -189,26 +192,11 @@
               }
             }
           }
-        },
-        "operationId": "get-api-TicketProfileVid-TicketId",
-        "description": "Получение заявки на \"Утверждение доступных видов\" по ID",
-        "parameters": []
+        }
       },
       "put": {
         "summary": "",
         "operationId": "put-api-TicketProfileVid-TicketId",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProfileVid"
-                }
-              }
-            }
-          }
-        },
         "description": "Редактирование \"Доступных профилей и видов\" по заявке",
         "parameters": [],
         "requestBody": {
@@ -219,33 +207,24 @@
               }
             }
           }
-        }
-      },
-      "patch": {
-        "summary": "",
-        "operationId": "patch-api-TicketProfileVid-TicketId",
+        },
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileVid"
+                  "$ref": "#/components/schemas/TicketsProfileVid"
                 }
               }
             }
           }
-        },
+        }
+      },
+      "patch": {
+        "summary": "",
+        "operationId": "patch-api-TicketProfileVid-TicketId",
         "description": "Утверждение заявки",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProfileVid"
-              }
-            }
-          }
-        },
         "parameters": [
           {
             "schema": {
@@ -256,7 +235,28 @@
             "required": true,
             "description": "Причина отказа"
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketsProfileVid"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketsProfileVid"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
