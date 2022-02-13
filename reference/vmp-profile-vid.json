@@ -21,7 +21,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileVid"
+                  "$ref": "#/components/schemas/TicketsProfileVid"
                 }
               }
             }
@@ -184,7 +184,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfileVid"
+                  "$ref": "#/components/schemas/TicketsProfileVid"
                 }
               }
             }
@@ -215,11 +215,10 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfileVid"
+                "$ref": "#/components/schemas/TicketsProfileVid"
               }
             }
-          },
-          "description": ""
+          }
         }
       },
       "patch": {
@@ -263,10 +262,10 @@
   },
   "components": {
     "schemas": {
-      "ProfileVid": {
-        "title": "ProfileVid - link",
+      "TicketsProfileVid": {
+        "title": "TicketsProfileVid",
         "type": "object",
-        "description": "Модель для работы с существующими заявками на утверждение \"Доступныхх профиле и видов\". Данные для формировании модели брать из таблиц: mz_register_vmp.ref_vmp_vid_profile + mz_register_vmp.ticket_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ.",
+        "description": "Модель для работы с существующими заявками на утверждение \"Доступных профилей и видов\". Данные для формировании модели брать из таблиц: mz_register_vmp.ref_vmp_vid_profile + mz_register_vmp.ticket_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ.",
         "x-internal": false,
         "properties": {
           "id": {
@@ -285,6 +284,30 @@
             "type": "string",
             "description": "Год действия записи"
           },
+          "razdel": {
+            "type": "integer",
+            "description": "Раздел. Определяет включение ВМП в базовую программу ОМС: 1 - включена; 2 - не включена"
+          },
+          "id_profile": {
+            "type": "integer",
+            "description": "Идентификатор профиля оказываемой МП"
+          },
+          "name_profile": {
+            "type": "string",
+            "description": "Наименование профиля оказываемой МП"
+          },
+          "group": {
+            "type": "integer",
+            "description": "Группа ВМП"
+          },
+          "id_vid": {
+            "type": "integer",
+            "description": "Идентификатор вида ВМП"
+          },
+          "name_vid": {
+            "type": "string",
+            "description": "Наименование вида ВМП"
+          },
           "status": {
             "$ref": "#/components/schemas/StatusProfileVid"
           },
@@ -294,9 +317,6 @@
           },
           "license": {
             "$ref": "#/components/schemas/License"
-          },
-          "profile_vid": {
-            "$ref": "#/components/schemas/ProfileVid - mat view"
           },
           "chekbox": {
             "type": "boolean",
@@ -312,15 +332,20 @@
           "create_date",
           "organization",
           "year",
+          "razdel",
+          "id_profile",
+          "name_profile",
+          "group",
+          "id_vid",
+          "name_vid",
           "status",
-          "profile_vid",
           "chekbox"
         ]
       },
-      "ProfileVid - mat view": {
+      "ProfileVid": {
         "title": "ProfileVid",
         "type": "object",
-        "description": "Справочник \"Доступные профили и виды\" (Мат вью из справочника НСИ) - mz_register_vmp.ref_vmp_vid_profile. Модель для первичного создания заявки на утверждение \"Доступныхх профиле и видов\"",
+        "description": "Справочник \"Доступные профили и виды\" (Мат вью из справочника НСИ) - mz_register_vmp.ref_vmp_vid_profile. Модель для первичного создания заявки на утверждение \"Доступных профилей и видов\"",
         "properties": {
           "id_profile": {
             "description": "Идентификатор профиля оказываемой МП",
