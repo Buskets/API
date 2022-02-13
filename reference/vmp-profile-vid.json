@@ -215,6 +215,62 @@
         },
         "description": "Create a new user."
       }
+    },
+    "/ProfileVid": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileVid"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-ProfileVid",
+        "description": "Получение списка \"Доступных профилей и видов\"",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "year",
+            "description": "Год",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "razdel",
+            "description": "Раздел. Признак, определяющий включение ВМП в базовую программу обязательного медицинского страхования (1 – включена; 2 – не включена)",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "mo",
+            "description": "Организация"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "status",
+            "description": "Статус"
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -275,7 +331,8 @@
       "ProfileVid": {
         "title": "ProfileVid - link",
         "type": "object",
-        "description": "Доступные профили и виды МО (при наличии уже созданной заявки у МО). 2 разные модели, так как разная обязательность полей",
+        "description": "Модель с \"Доступными профилями и видами\". Данные брать из таблиц: mz_register_vmp.ref_vmp_vid_profile + mz_register_vmp.ticket_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ.",
+        "x-internal": false,
         "properties": {
           "id": {
             "description": "Уникальный идентификатор заявки (Номер заявки)",
@@ -286,19 +343,33 @@
             "description": "Дата заявки"
           },
           "organization": {
-            "type": "string",
+            "type": "object",
             "description": "Организация пользователя (ref_organization), Модель из общего модуля организаций."
           },
           "year": {
             "type": "string",
             "description": "Год действия записи"
           },
-          "razdel": {
-            "type": "integer",
-            "description": "Раздел. Определяет включение ВМП в базовую программу ОМС: 1 - включена; 2 - не включена"
-          },
           "status": {
-            "type": "string"
+            "$ref": "#/components/schemas/StatusProfileVid"
+          },
+          "otkaz_reason": {
+            "type": "string",
+            "description": "Причина отказа в утверждении"
+          },
+          "license": {
+            "$ref": "#/components/schemas/License"
+          },
+          "profile_vid": {
+            "$ref": "#/components/schemas/ProfileVid - mat view"
+          },
+          "chekbox": {
+            "type": "boolean",
+            "description": "Признак, определяющий состояние чек бокса на фронте (true = выбран)"
+          },
+          "marker": {
+            "type": "string",
+            "description": "Признак, определяющий необходимость подсвечивания информации на фронте. Определяется относительно ранее утверждённого списка (red - если запись была удалена; green - если запись была добавлена)"
           }
         },
         "required": [
@@ -306,7 +377,9 @@
           "create_date",
           "organization",
           "year",
-          "razdel"
+          "status",
+          "profile_vid",
+          "chekbox"
         ]
       },
       "ProfileVid - mat view": {
@@ -361,11 +434,50 @@
       "StatusProfileVid": {
         "title": "StatusProfileVid",
         "type": "object",
+        "description": "Справочник \"Статус согласования видов ВМП\" - mz_nsi_directory.ref_vmp_vid_status",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "integer",
+            "description": "Уникальный идентификатор статуса согласования вида ВМП"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование статуса согласования вида ВМП"
           }
-        }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "License": {
+        "title": "License",
+        "type": "object",
+        "description": "Лицензии организаций ВМП - mz_register_vmp.link_mo_license",
+        "properties": {
+          "id": {
+            "description": "Уникальный идентификатор лицензии",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование файла лицензии"
+          },
+          "date": {
+            "type": "string",
+            "description": "Дата выдачи лицензии"
+          },
+          "license": {
+            "type": "object",
+            "description": "Файл лицензии"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "date",
+          "license"
+        ]
       }
     }
   }
