@@ -271,6 +271,101 @@
           "email",
           "emailVerified"
         ]
+      },
+      "ProfileVid": {
+        "title": "ProfileVid - link",
+        "type": "object",
+        "description": "Доступные профили и виды МО (при наличии уже созданной заявки у МО). 2 разные модели, так как разная обязательность полей",
+        "properties": {
+          "id": {
+            "description": "Уникальный идентификатор заявки (Номер заявки)",
+            "type": "integer"
+          },
+          "create_date": {
+            "type": "string",
+            "description": "Дата заявки"
+          },
+          "organization": {
+            "type": "string",
+            "description": "Организация пользователя (ref_organization), Модель из общего модуля организаций."
+          },
+          "year": {
+            "type": "string",
+            "description": "Год действия записи"
+          },
+          "razdel": {
+            "type": "integer",
+            "description": "Раздел. Определяет включение ВМП в базовую программу ОМС: 1 - включена; 2 - не включена"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "create_date",
+          "organization",
+          "year",
+          "razdel"
+        ]
+      },
+      "ProfileVid - mat view": {
+        "title": "ProfileVid",
+        "type": "object",
+        "description": "Справочник \"Доступные профили и виды\" (Мат вью из справочника НСИ) - mz_register_vmp.ref_vmp_vid_profile",
+        "properties": {
+          "id_profile": {
+            "description": "Идентификатор профиля оказываемой МП",
+            "type": "integer"
+          },
+          "name_profile": {
+            "type": "string",
+            "description": "Наименование профиля оказываемой МП"
+          },
+          "group": {
+            "type": "integer",
+            "description": "Группа ВМП"
+          },
+          "id_vid": {
+            "type": "integer",
+            "description": "Идентификатор вида ВМП"
+          },
+          "name_vid": {
+            "type": "string",
+            "description": "Наименование вида ВМП"
+          },
+          "razdel": {
+            "type": "integer",
+            "description": "Раздел. Определяет включение ВМП в базовую программу ОМС: 1 - включена; 2 - не включена"
+          },
+          "date_begin": {
+            "type": "string",
+            "description": "Дата начала действия записи"
+          },
+          "date_end": {
+            "type": "string",
+            "description": "Дата окончания действия записи"
+          }
+        },
+        "required": [
+          "id_profile",
+          "name_profile",
+          "group",
+          "id_vid",
+          "name_vid",
+          "razdel",
+          "date_begin",
+          "date_end"
+        ]
+      },
+      "StatusProfileVid": {
+        "title": "StatusProfileVid",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
       }
     }
   }
