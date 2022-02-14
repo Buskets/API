@@ -312,6 +312,26 @@
           }
         ]
       }
+    },
+    "/StausProfileVid": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusProfileVid"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-StausProfileVid",
+        "description": "Получение значений для фильтра со статусами заявок"
+      }
     }
   },
   "components": {
