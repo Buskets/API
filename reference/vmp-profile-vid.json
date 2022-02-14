@@ -313,7 +313,7 @@
         ]
       }
     },
-    "/StausProfileVid": {
+    "/api/StausProfileVid": {
       "get": {
         "summary": "Your GET endpoint",
         "tags": [],
@@ -331,7 +331,8 @@
         },
         "operationId": "get-StausProfileVid",
         "description": "Получение значений для фильтра со статусами заявок"
-      }
+      },
+      "parameters": []
     }
   },
   "components": {
