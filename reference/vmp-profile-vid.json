@@ -223,7 +223,7 @@
       "patch": {
         "summary": "",
         "operationId": "patch-api-TicketProfileVid-TicketId",
-        "description": "Утверждение заявки на \"Утверждение доступных видов\" по id",
+        "description": "Утверждение / Отказ по заявке на \"Утверждение доступных видов\" по id",
         "parameters": [
           {
             "schema": {
@@ -231,8 +231,15 @@
             },
             "in": "query",
             "name": "otkaz_reason",
-            "required": true,
             "description": "Причина отказа"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "status",
+            "description": "Решение по заявке (2 - Не утверждено / 3 - Утверждено) "
           }
         ],
         "requestBody": {
