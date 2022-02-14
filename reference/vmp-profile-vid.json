@@ -21,7 +21,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TicketsProfileVid"
+                  "$ref": "#/components/schemas/TicketProfileVid"
                 }
               }
             }
@@ -36,7 +36,7 @@
             },
             "in": "query",
             "name": "year",
-            "description": "Год (Должен входить в период действия записи в НСИ)",
+            "description": "Год",
             "required": true
           },
           {
@@ -115,7 +115,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TicketsProfileVid"
+                  "$ref": "#/components/schemas/TicketProfileVid"
                 }
               }
             }
@@ -163,16 +163,15 @@
       },
       "parameters": []
     },
-    "/api/TicketProfileVid/{TicketId}": {
+    "/api/TicketsProfileVid/{Id}": {
       "parameters": [
         {
           "schema": {
-            "type": "integer"
+            "type": "string"
           },
-          "name": "TicketId",
+          "name": "Id",
           "in": "path",
-          "required": true,
-          "description": "Уникальный идентификатор заявки (Номер заявки)"
+          "required": true
         }
       ],
       "get": {
@@ -187,7 +186,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TicketsProfileVid"
+                  "$ref": "#/components/schemas/TicketProfileVid"
                 }
               }
             }
@@ -197,13 +196,13 @@
       "put": {
         "summary": "",
         "operationId": "put-api-TicketProfileVid-TicketId",
-        "description": "Редактирование \"Доступных профилей и видов\" по заявке",
+        "description": "Редактирование заявки на \"Утверждение доступных видов\" по id",
         "parameters": [],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketsProfileVid"
+                "$ref": "#/components/schemas/TicketProfileVid"
               }
             }
           }
@@ -214,7 +213,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TicketsProfileVid"
+                  "$ref": "#/components/schemas/TicketProfileVid"
                 }
               }
             }
@@ -224,7 +223,7 @@
       "patch": {
         "summary": "",
         "operationId": "patch-api-TicketProfileVid-TicketId",
-        "description": "Утверждение заявки",
+        "description": "Утверждение заявки на \"Утверждение доступных видов\" по id",
         "parameters": [
           {
             "schema": {
@@ -240,7 +239,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketsProfileVid"
+                "$ref": "#/components/schemas/TicketProfileVid"
               }
             }
           }
@@ -251,7 +250,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TicketsProfileVid"
+                  "$ref": "#/components/schemas/TicketProfileVid"
                 }
               }
             }
@@ -262,10 +261,10 @@
   },
   "components": {
     "schemas": {
-      "TicketsProfileVid": {
-        "title": "TicketsProfileVid",
+      "TicketProfileVid": {
+        "title": "TicketProfileVid",
         "type": "object",
-        "description": "Модель для работы с существующими заявками на утверждение \"Доступных профилей и видов\". Данные для формировании модели брать из таблиц: mz_register_vmp.ref_vmp_vid_profile + mz_register_vmp.ticket_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ.",
+        "description": "Модель для работы с заявками на утверждение \"Доступных профилей и видов\". Данные для формировании модели брать из таблиц: mz_register_vmp.ref_vmp_vid_profile + mz_register_vmp.ticket_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ.",
         "x-internal": false,
         "properties": {
           "id": {
