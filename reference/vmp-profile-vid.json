@@ -179,7 +179,16 @@
         "tags": [],
         "operationId": "get-api-TicketProfileVid-TicketId",
         "description": "Получение заявки на \"Утверждение доступных видов\" по ID",
-        "parameters": [],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "query",
+            "description": "Искомый текст (ищем в поле name_vid)"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -290,7 +299,8 @@
             },
             "in": "query",
             "name": "mo",
-            "description": "Организация"
+            "description": "Организация",
+            "required": true
           },
           {
             "schema": {
@@ -309,6 +319,14 @@
             "name": "razdel",
             "required": true,
             "description": "Раздел. Признак, определяющий включение ВМП в базовую программу обязательного медицинского страхования (1 – включена; 2 – не включена)"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "query",
+            "description": "Искомый текст (ищем в поле name_vid)"
           }
         ]
       }
