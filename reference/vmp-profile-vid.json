@@ -488,7 +488,7 @@
       "ProfileVid": {
         "title": "ProfileVid",
         "type": "object",
-        "description": "Справочник \"Доступные профили и виды\" (Мат вью из справочника НСИ) - mz_register_vmp.ref_vmp_vid_profile",
+        "description": "\"Доступные профили и виды\" для боди",
         "properties": {
           "id_profile": {
             "description": "Идентификатор профиля оказываемой МП",
@@ -514,13 +514,8 @@
             "type": "integer",
             "description": "Раздел. Определяет включение ВМП в базовую программу ОМС: 1 - включена; 2 - не включена"
           },
-          "date_begin": {
-            "type": "string",
-            "description": "Дата начала действия записи"
-          },
-          "date_end": {
-            "type": "string",
-            "description": "Дата окончания действия записи"
+          "license": {
+            "$ref": "#/components/schemas/License"
           }
         },
         "required": [
@@ -529,7 +524,8 @@
           "group",
           "id_vid",
           "name_vid",
-          "razdel"
+          "razdel",
+          "license"
         ]
       },
       "StatusProfileVid": {
