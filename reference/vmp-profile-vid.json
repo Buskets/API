@@ -515,7 +515,7 @@
             "description": "Раздел. Определяет включение ВМП в базовую программу ОМС: 1 - включена; 2 - не включена"
           },
           "license": {
-            "$ref": "#/components/schemas/License"
+            "$ref": "#/components/schemas/License2"
           }
         },
         "required": [
@@ -524,8 +524,7 @@
           "group",
           "id_vid",
           "name_vid",
-          "razdel",
-          "license"
+          "razdel"
         ]
       },
       "StatusProfileVid": {
@@ -571,6 +570,30 @@
         },
         "required": [
           "id",
+          "name",
+          "date",
+          "license"
+        ]
+      },
+      "License2": {
+        "title": "License2",
+        "type": "object",
+        "description": "Лицензия для боди",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Наименование файла лицензии"
+          },
+          "date": {
+            "type": "string",
+            "description": "Дата выдачи лицензии"
+          },
+          "license": {
+            "type": "object",
+            "description": "Файл лицензии"
+          }
+        },
+        "required": [
           "name",
           "date",
           "license"
