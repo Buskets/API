@@ -13,7 +13,7 @@
   "paths": {
     "/api/TicketsProfileVid": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Получение списка заявок на утверждение \"Доступных профилей и видов\"",
         "tags": [],
         "responses": {
           "200": {
@@ -25,10 +25,13 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Нет данных, соответствующих выбранным параметрам поиска"
           }
         },
         "operationId": "get-ProfileVid",
-        "description": "Получение списка заявок на утверждение \"Доступных профилей и видов\"",
+        "description": "",
         "parameters": [
           {
             "schema": {
@@ -107,11 +110,11 @@
         ]
       },
       "post": {
-        "summary": "",
+        "summary": "Создание заявки на утверждение \"Доступных профилей и видов\"",
         "operationId": "post-ProfileVid",
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -121,7 +124,7 @@
             }
           }
         },
-        "description": "Создание заявки на утверждение \"Доступных профилей и видов\" (в заявку попадает список только из выбранных видов на FE (chek in))",
+        "description": "В заявку попадает список только из выбранных видов на FE (chek in)",
         "parameters": [
           {
             "schema": {
@@ -175,10 +178,10 @@
         }
       ],
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Получение заявки на \"Утверждение доступных видов\" по ID",
         "tags": [],
         "operationId": "get-api-TicketProfileVid-TicketId",
-        "description": "Получение заявки на \"Утверждение доступных видов\" по ID",
+        "description": "",
         "parameters": [
           {
             "schema": {
@@ -203,9 +206,9 @@
         }
       },
       "put": {
-        "summary": "",
+        "summary": "Редактирование заявки на \"Утверждение доступных видов\" по id",
         "operationId": "put-api-TicketProfileVid-TicketId",
-        "description": "Редактирование заявки на \"Утверждение доступных видов\" по id (в заявку попадает список только из выбранных видов на FE (chek in))",
+        "description": "В заявку попадает список только из выбранных видов на FE (chek in)",
         "parameters": [],
         "requestBody": {
           "content": {
@@ -230,9 +233,9 @@
         }
       },
       "patch": {
-        "summary": "",
+        "summary": "Утверждение / Отказ по заявке на \"Утверждение доступных видов\" по id",
         "operationId": "patch-api-TicketProfileVid-TicketId",
-        "description": "Утверждение / Отказ по заявке на \"Утверждение доступных видов\" по id",
+        "description": "",
         "parameters": [
           {
             "schema": {
@@ -276,7 +279,7 @@
     },
     "/api/TicketsProfileVid/Create": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Получение списка профилей и видов для создания заявки",
         "tags": [],
         "responses": {
           "200": {
@@ -288,10 +291,13 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Нет данных для создания заявки"
           }
         },
         "operationId": "get-api-TicketsProfileVid-Create",
-        "description": "Получение списка \"Доступных профилей и видов\" для создания заявки ",
+        "description": "",
         "parameters": [
           {
             "schema": {
@@ -331,9 +337,9 @@
         ]
       }
     },
-    "/api/StausProfileVid": {
+    "/api/TicketsProfileVid/Status": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Получение значений для фильтра со статусами заявок",
         "tags": [],
         "responses": {
           "200": {
@@ -348,7 +354,7 @@
           }
         },
         "operationId": "get-StausProfileVid",
-        "description": "Получение значений для фильтра со статусами заявок"
+        "description": ""
       },
       "parameters": []
     }
