@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "vmp-profile-vid",
+    "title": "Модуль \"Доступные профили и виды ВМП\"",
     "version": "1.0",
-    "description": "Модуль \"Доступные профили и виды ВМП\""
+    "description": ""
   },
   "servers": [
     {
@@ -161,7 +161,8 @@
                 "$ref": "#/components/schemas/ProfileVid"
               }
             }
-          }
+          },
+          "description": ""
         }
       },
       "parameters": []
@@ -364,7 +365,7 @@
       "TicketProfileVid": {
         "title": "TicketProfileVid",
         "type": "object",
-        "description": "Модель для работы с заявками на утверждение \"Доступных профилей и видов\". Данные для формировании модели брать из таблиц: mz_register_vmp.ref_vmp_vid_profile + mz_register_vmp.ticket_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ.",
+        "description": "Модель для работы с заявками на утверждение \"Доступных профилей и видов\". Данные для формировании модели брать из таблиц: mz_register_vmp.ref_vmp_vid_profile + mz_register_vmp.ticket_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ.\nСостав атрибутов:\nyear значение FE, должно входить в промежуток между date_begin and date_end;\nticket_mo_vid.id;\nticket_mo_vid.create_date;\nticket_mo_vid.id_organization;\nyear значение FE, должно входить в промежуток между date_begin and date_end;\nref_vmp_vid_profile.razdel;\nref_vmp_vid_profile.id_profile;\nref_vmp_vid_profile.name_profile;\nref_vmp_vid_profile.group;\nref_vmp_vid_profile.id_vid;\nref_vmp_vid_profile.name_vid;\nmz_register_vmp.ticket_mo_vid.status;\nmz_register_vmp.ticket_mo_vid.otkaz_reason;\nmz_register_vmp.ticket_mo_vid.id_license;\nchekbox проставляем значение true (выбран) по совпавшим записям в таблицах (с учётом МО, раздела, вида и года)\nmarker. Признак, определяющий необходимость подсвечивания информации на фронте. Определяется относительно ранее утверждённого списка (red - если запись была удалена; green - если запись была добавлена). Проставляется при post запросе.",
         "x-internal": false,
         "properties": {
           "id": {
@@ -444,7 +445,7 @@
       "TicketProfileVid2": {
         "title": "TicketProfileVid2",
         "type": "object",
-        "description": "Модель для создания заявок на утверждение \"Доступных профилей и видов\". Данные для формировании модели брать из таблиц: mz_register_vmp.ref_vmp_vid_profile + mz_register_vmp.link_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ + mz_register_vmp.link_mo_vid.id_organizatioin=Оргазация пользователя.",
+        "description": "Модель для получения списка видов при создании заявки на утверждение \"Доступных профилей и видов\". Данные для формировании модели брать из таблиц: mz_register_vmp.ref_vmp_vid_profile + mz_register_vmp.link_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ + mz_register_vmp.link_mo_vid.id_organizatioin=Оргазация пользователя.\nСостав атрибутов:\nyear значение FE, должно входить в промежуток между date_begin and date_end;\nref_vmp_vid_profile.razdel;\nref_vmp_vid_profile.id_profile;\nref_vmp_vid_profile.name_profile;\nref_vmp_vid_profile.group;\nref_vmp_vid_profile.id_vid;\nref_vmp_vid_profile.name_vid;\nchekbox проставляем значение true (выбран) по совпавшим записям в таблицах (с учётом МО, раздела, вида и года)\n",
         "x-internal": false,
         "properties": {
           "year": {
@@ -468,8 +469,8 @@
             "description": "Группа ВМП"
           },
           "id_vid": {
-            "type": "integer",
-            "description": "Идентификатор вида ВМП"
+            "description": "Массив идентификаторов вида ВМП",
+            "type": "integer"
           },
           "name_vid": {
             "type": "string",
