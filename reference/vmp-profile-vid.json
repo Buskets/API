@@ -94,7 +94,7 @@
             },
             "in": "query",
             "name": "sort",
-            "description": "Поле для сортировки",
+            "description": "Поле для сортировки. По умолчанию = Номер заявки (id)",
             "required": true
           },
           {
@@ -105,7 +105,7 @@
             "in": "query",
             "name": "sort_dir ",
             "required": true,
-            "description": "Тип сортировки"
+            "description": "Тип сортировки. По умолчанию = По убыванию (desc)"
           }
         ]
       },
