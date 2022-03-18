@@ -186,16 +186,7 @@
         "tags": [],
         "operationId": "get-api-TicketProfileVid-TicketId",
         "description": "",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "query",
-            "description": "Искомый текст (ищем в поле name_vid)"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK",
@@ -281,7 +272,7 @@
         }
       }
     },
-    "/api/TicketsProfileVid/Create": {
+    "/api/available-views": {
       "get": {
         "summary": "Получение списка профилей и видов для создания заявки",
         "tags": [],
@@ -329,19 +320,12 @@
             "name": "razdel",
             "required": true,
             "description": "Раздел. Признак, определяющий включение ВМП в базовую программу обязательного медицинского страхования (1 – включена; 2 – не включена)"
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "query",
-            "description": "Искомый текст (ищем в поле name_vid)"
           }
         ]
-      }
+      },
+      "parameters": []
     },
-    "/api/TicketsProfileVid/Status": {
+    "/api/dictionary/TicketsProfileVid-Status": {
       "get": {
         "summary": "Получение значений для фильтра со статусами заявок",
         "tags": [],
