@@ -262,7 +262,8 @@
             },
             "in": "query",
             "name": "status",
-            "description": "Решение по заявке (2 - Не утверждено / 3 - Утверждено) "
+            "description": "Решение по заявке (2 - Не утверждено / 3 - Утверждено) ",
+            "required": true
           }
         ],
         "requestBody": {
