@@ -368,6 +368,28 @@
         "description": ""
       },
       "parameters": []
+    },
+    "/api/TicketsProfileVid/{Id}/active": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "Id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "patch": {
+        "summary": "Снятие активности у заявки",
+        "operationId": "patch-api-TicketsProfileVid-Id-active",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "В таблице ticket_mo_vid проставляем active=false по заявке с идентификатором равным {Id}"
+      }
     }
   },
   "components": {
