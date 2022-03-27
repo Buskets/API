@@ -124,7 +124,7 @@
             },
             "in": "query",
             "name": "active",
-            "description": "Активность заявки (true/false)"
+            "description": "Активность заявки (Да/Нет)"
           }
         ]
       },
