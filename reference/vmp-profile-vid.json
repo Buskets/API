@@ -292,7 +292,7 @@
         }
       }
     },
-    "/api/available-views": {
+    "/api/Аvailable-views": {
       "get": {
         "summary": "Получение списка профилей и видов для создания заявки",
         "tags": [],
@@ -302,16 +302,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TicketProfileVid2"
+                  "$ref": "#/components/schemas/Аvailable-views"
                 }
               }
             }
           },
           "400": {
-            "description": "1. Если отсутствует хотя бы один из обязательных входных параметров для создания заявки (year/razdel/mo), то возвращаем ошибку: \"Указаны не все обязательные параметры для создания заявки (Год/Раздел/Организация)"
+            "description": "Если отсутствует хотя бы один из обязательных входных параметров для создания заявки (year/razdel/mo), то возвращаем ошибку: \"Указаны не все обязательные параметры для создания заявки (Год/Раздел/Организация)"
           },
           "404": {
-            "description": "Нет данных для создания заявки"
+            "description": "Если записей по указанным квери параметрам не найдено, то возвращаем ошибку: \"Нет данных для создания заявки\""
           }
         },
         "operationId": "get-api-TicketsProfileVid-Create",
@@ -457,8 +457,8 @@
           "active"
         ]
       },
-      "TicketProfileVid2": {
-        "title": "TicketProfileVid2",
+      "Аvailable-views": {
+        "title": "Аvailable-views",
         "type": "object",
         "description": "Модель для получения списка видов при создании заявки на утверждение \"Доступных профилей и видов\". Данные для формировании модели брать из таблиц: mz_nsi_directory.ref_vmp_vid_profile + mz_register_vmp.link_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ + mz_register_vmp.link_mo_vid.id_organizatioin=Оргазация пользователя/квери параметру mo.\nСостав атрибутов:\nквери параметр year, должен входить в промежуток между date_begin and date_end;\nref_vmp_vid_profile.razdel;\nref_vmp_vid_profile.id_profile;\nref_vmp_vid_profile.name_profile;\nref_vmp_vid_profile.group;\nref_vmp_vid_profile.id_vid;\nref_vmp_vid_profile.name_vid;\nchekbox проставляем значение true (выбран) по совпавшим записям в таблицах (с учётом МО, раздела, вида и года)\n",
         "x-internal": false,
