@@ -369,7 +369,7 @@
       },
       "parameters": []
     },
-    "/api/TicketsProfileVid/{Id}/active": {
+    "/api/TicketsProfileVid/{Id}/active-false": {
       "parameters": [
         {
           "schema": {
@@ -385,7 +385,14 @@
         "operationId": "patch-api-TicketsProfileVid-Id-active",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketProfileVid"
+                }
+              }
+            }
           }
         },
         "description": "В таблице ticket_mo_vid проставляем active=false по заявке с идентификатором равным {Id}"
