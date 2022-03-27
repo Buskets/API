@@ -143,7 +143,7 @@
             }
           },
           "400": {
-            "description": "1. Если у МО уже имеется заявка (mz_register_vmp.ticket_mo_vid) в статусе \"На утверждении\" ИЛИ \"Не утверждено\" (status=1 or 2) с указанными параметрами (mo+year+razdel), то возвращаем ошибку: \"Имеется заявка в статусе: На утверждении/Не утверждено\"\n\n2. Если отсутствует хотя бы один из обязательных входных параметров для создания заявки (year/razdel/mo), то возвращаем ошибку: \"Указаны не все обязательные параметры для создания заявки (Год/Раздел/Организация)"
+            "description": "1. Если у МО уже имеется заявка (mz_register_vmp.ticket_mo_vid) в статусе \"На утверждении\" ИЛИ \"Не утверждено\" (status=1 or 2) с указанными параметрами (mo+year+razdel), то возвращаем ошибку: \"Имеется заявка в статусе: На утверждении/Не утверждено\""
           }
         },
         "description": "В заявку попадает список только из выбранных видов на FE (chek in)",
@@ -307,6 +307,9 @@
               }
             }
           },
+          "400": {
+            "description": "1. Если отсутствует хотя бы один из обязательных входных параметров для создания заявки (year/razdel/mo), то возвращаем ошибку: \"Указаны не все обязательные параметры для создания заявки (Год/Раздел/Организация)"
+          },
           "404": {
             "description": "Нет данных для создания заявки"
           }
@@ -457,7 +460,7 @@
       "TicketProfileVid2": {
         "title": "TicketProfileVid2",
         "type": "object",
-        "description": "Модель для получения списка видов при создании заявки на утверждение \"Доступных профилей и видов\". Данные для формировании модели брать из таблиц: mz_nsi_directory.ref_vmp_vid_profile + mz_register_vmp.link_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ + mz_register_vmp.link_mo_vid.id_organizatioin=Оргазация пользователя.\nСостав атрибутов:\nyear значение FE, должно входить в промежуток между date_begin and date_end;\nref_vmp_vid_profile.razdel;\nref_vmp_vid_profile.id_profile;\nref_vmp_vid_profile.name_profile;\nref_vmp_vid_profile.group;\nref_vmp_vid_profile.id_vid;\nref_vmp_vid_profile.name_vid;\nchekbox проставляем значение true (выбран) по совпавшим записям в таблицах (с учётом МО, раздела, вида и года)\n",
+        "description": "Модель для получения списка видов при создании заявки на утверждение \"Доступных профилей и видов\". Данные для формировании модели брать из таблиц: mz_nsi_directory.ref_vmp_vid_profile + mz_register_vmp.link_mo_vid. Лефт Джоинить по razdel + id_vid + вхождение year в период действия записи в НСИ + mz_register_vmp.link_mo_vid.id_organizatioin=Оргазация пользователя/квери параметру mo.\nСостав атрибутов:\nквери параметр year, должен входить в промежуток между date_begin and date_end;\nref_vmp_vid_profile.razdel;\nref_vmp_vid_profile.id_profile;\nref_vmp_vid_profile.name_profile;\nref_vmp_vid_profile.group;\nref_vmp_vid_profile.id_vid;\nref_vmp_vid_profile.name_vid;\nchekbox проставляем значение true (выбран) по совпавшим записям в таблицах (с учётом МО, раздела, вида и года)\n",
         "x-internal": false,
         "properties": {
           "year": {
