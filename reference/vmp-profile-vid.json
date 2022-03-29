@@ -369,7 +369,7 @@
       },
       "parameters": []
     },
-    "/api/TicketsProfileVid/{Id}/active-false": {
+    "/api/TicketsProfileVid/{Id}/disactivate": {
       "parameters": [
         {
           "schema": {
