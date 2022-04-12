@@ -397,6 +397,25 @@
         },
         "description": "В таблице ticket_mo_vid проставляем active=false по заявке с идентификатором равным {Id}"
       }
+    },
+    "/api/dictionary/TicketsProfileVid-Razdel": {
+      "get": {
+        "summary": "Получение значений для фильтра с разделами",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RazdelProfileVid"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-dictionary-TicketsProfileVid-Razdel"
+      }
     }
   },
   "components": {
@@ -424,8 +443,7 @@
             "description": "Год действия записи"
           },
           "razdel": {
-            "type": "integer",
-            "description": "Раздел. Определяет включение ВМП в базовую программу ОМС: 1 - включена; 2 - не включена"
+            "$ref": "#/components/schemas/RazdelProfileVid"
           },
           "id_profile": {
             "type": "integer",
@@ -501,8 +519,7 @@
             "description": "Год действия записи"
           },
           "razdel": {
-            "type": "integer",
-            "description": "Раздел. Определяет включение ВМП в базовую программу ОМС: 1 - включена; 2 - не включена"
+            "$ref": "#/components/schemas/RazdelProfileVid"
           },
           "id_profile": {
             "type": "integer",
@@ -545,17 +562,16 @@
         "type": "object",
         "description": "\"Доступные профили и виды\" для боди",
         "properties": {
-          "id_profile": {
-            "description": "Идентификатор профиля оказываемой МП",
-            "type": "integer"
+          "organization": {
+            "type": "object",
+            "description": "Организация пользователя (ref_organization), Модель из общего модуля организаций."
           },
-          "name_profile": {
+          "year": {
             "type": "string",
-            "description": "Наименование профиля оказываемой МП"
+            "description": "Год"
           },
-          "group": {
-            "type": "integer",
-            "description": "Группа ВМП"
+          "razdel": {
+            "$ref": "#/components/schemas/RazdelProfileVid"
           },
           "id_vid": {
             "type": "integer",
@@ -565,21 +581,17 @@
             "type": "string",
             "description": "Наименование вида ВМП"
           },
-          "razdel": {
-            "type": "integer",
-            "description": "Раздел. Определяет включение ВМП в базовую программу ОМС: 1 - включена; 2 - не включена"
-          },
           "license": {
             "$ref": "#/components/schemas/License2"
           }
         },
         "required": [
-          "id_profile",
-          "name_profile",
-          "group",
+          "organization",
+          "year",
+          "razdel",
           "id_vid",
           "name_vid",
-          "razdel"
+          "license"
         ]
       },
       "StatusProfileVid": {
@@ -652,6 +664,25 @@
           "name",
           "date",
           "license"
+        ]
+      },
+      "RazdelProfileVid": {
+        "title": "RazdelProfileVid",
+        "type": "object",
+        "description": "Справочник \"Разделы, определяющие включение ВМП в базовую программу ОМС\" - mz_nsi_directory.ref_vmp_razdel",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Уникальный идентификатор раздела"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование раздела"
+          }
+        },
+        "required": [
+          "id",
+          "name"
         ]
       }
     }
