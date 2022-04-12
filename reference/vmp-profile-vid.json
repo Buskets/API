@@ -398,7 +398,7 @@
         "description": "В таблице ticket_mo_vid проставляем active=false по заявке с идентификатором равным {Id}"
       }
     },
-    "/api/dictionary/TicketsProfileVid-Razdel": {
+    "/api/dictionary/ProfileVid-Razdel": {
       "get": {
         "summary": "Получение значений для фильтра с разделами",
         "tags": [],
@@ -415,7 +415,8 @@
           }
         },
         "operationId": "get-api-dictionary-TicketsProfileVid-Razdel"
-      }
+      },
+      "parameters": []
     }
   },
   "components": {
