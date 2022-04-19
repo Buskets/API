@@ -1,0 +1,304 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "СКЛ. Прерывание лечения",
+    "version": "1.0",
+    "description": "СКЛ. Прерывание лечения на Этапе 5"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/dictionary/mkb10": {
+      "get": {
+        "summary": "Получение справочника диагнозы по МКБ-10",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mkb10"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-mkb10",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "name",
+            "description": "Поиск по коду + наименование"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "page"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "page_size"
+          }
+        ],
+        "description": ""
+      },
+      "parameters": []
+    },
+    "/dictionary/recomendation": {
+      "get": {
+        "summary": "Получение справочника Рекомендации",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/recomendation"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-recomendation"
+      },
+      "parameters": []
+    },
+    "/dictionary/hospital-result": {
+      "get": {
+        "summary": "Получение справочника Результат госпитализации",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hospitalResult"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-hospital-result"
+      },
+      "parameters": []
+    },
+    "/break-ticket/{ticket}": {
+      "get": {
+        "summary": "Получение прерываний лечения",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ticketBreak"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-break-ticket"
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "ticket",
+          "in": "path",
+          "required": true,
+          "description": "Заявка"
+        }
+      ],
+      "post": {
+        "summary": "Прервать лечение",
+        "operationId": "post-break-ticket-ticket",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ticketBreak"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ticketBreak"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/break-ticket/{id}": {
+      "patch": {
+        "summary": "Продолжить лечение",
+        "operationId": "patch-break-ticket",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ticketBreak"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ticketBreak"
+              }
+            }
+          },
+          "description": ""
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "УИ прерывания лечения"
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "recomendation": {
+        "title": "Рекомендовано",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "УИ"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "description": "Рекомендовано (ref_recomendation)"
+      },
+      "hospitalResult": {
+        "title": "Результат госпитализации",
+        "type": "object",
+        "description": "Результат госпитализации (ref_hospital_result)",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "УИ"
+          },
+          "name": {
+            "description": "Наименование",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "mkb10": {
+        "title": "Диагноз по МКБ-10",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "УИ"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование"
+          },
+          "parent": {
+            "type": "integer",
+            "description": "Родитель"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "name"
+        ],
+        "description": "Диагноз по МКБ-10 (ref_mkb_10)"
+      },
+      "ticketBreak": {
+        "title": "Прерывание лечения",
+        "type": "object",
+        "description": "Прерывание лечения (ticket_break)",
+        "x-internal": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "УИ"
+          },
+          "ticket": {
+            "type": "integer",
+            "description": "Заявка"
+          },
+          "date_begin_hosp": {
+            "type": "string",
+            "description": "Дата начала госпитализации"
+          },
+          "mkb10_begin": {
+            "$ref": "#/components/schemas/mkb10"
+          },
+          "date_end_hosp": {
+            "type": "string",
+            "description": "Дата окончания госпитализации"
+          },
+          "mkb10_end": {
+            "$ref": "#/components/schemas/mkb10"
+          },
+          "result_hosp": {
+            "$ref": "#/components/schemas/hospitalResult"
+          },
+          "recommend": {
+            "$ref": "#/components/schemas/recomendation"
+          }
+        },
+        "required": [
+          "ticket",
+          "date_begin_hosp"
+        ]
+      }
+    }
+  }
+}
