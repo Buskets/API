@@ -197,12 +197,12 @@
           "id",
           "name"
         ],
-        "description": "Рекомендовано (ref_recomendation)"
+        "description": "Рекомендовано (модель соответствует справочнику ref_recomendation)"
       },
       "hospitalResult": {
         "title": "Результат госпитализации",
         "type": "object",
-        "description": "Результат госпитализации (ref_hospital_result)",
+        "description": "Результат госпитализации (модель соответствует справочнику ref_hospital_result)",
         "properties": {
           "id": {
             "type": "integer",
@@ -244,7 +244,7 @@
           "code",
           "name"
         ],
-        "description": "Диагноз по МКБ-10 (ref_mkb_10)"
+        "description": "Диагноз по МКБ-10 (модель соответствует справочнику ref_mkb_10)"
       },
       "ticketBreak": {
         "title": "Прерывание лечения",
