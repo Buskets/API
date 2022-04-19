@@ -151,7 +151,7 @@
         }
       },
       "patch": {
-        "summary": "",
+        "summary": "Продолжить лечение",
         "operationId": "patch-break-ticket-ticket",
         "responses": {
           "200": {
