@@ -249,7 +249,7 @@
       "ticketBreak": {
         "title": "Прерывание лечения",
         "type": "object",
-        "description": "Прерывание лечения (модель соответствует таблице ticket_break)",
+        "description": "Прерывание лечения (модель соответствует таблице ticket_break).\nВложить данную мождель в текущую модель этапа 5 (TicketStep5)",
         "x-internal": false,
         "properties": {
           "id": {
