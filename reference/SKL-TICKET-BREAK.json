@@ -149,12 +149,10 @@
             }
           }
         }
-      }
-    },
-    "/break-ticket/{id}": {
+      },
       "patch": {
-        "summary": "Продолжить лечение",
-        "operationId": "patch-break-ticket",
+        "summary": "",
+        "operationId": "patch-break-ticket-ticket",
         "responses": {
           "200": {
             "description": "OK",
@@ -177,18 +175,7 @@
           },
           "description": ""
         }
-      },
-      "parameters": [
-        {
-          "schema": {
-            "type": "integer"
-          },
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "description": "УИ прерывания лечения"
-        }
-      ]
+      }
     }
   },
   "components": {
@@ -262,7 +249,7 @@
       "ticketBreak": {
         "title": "Прерывание лечения",
         "type": "object",
-        "description": "Прерывание лечения (ticket_break)",
+        "description": "Прерывание лечения (модель соответствует таблице ticket_break)",
         "x-internal": false,
         "properties": {
           "id": {
@@ -275,14 +262,14 @@
           },
           "date_begin_hosp": {
             "type": "string",
-            "description": "Дата начала госпитализации"
+            "description": "Дата перевода в другую профильную организацию"
           },
           "mkb10_begin": {
             "$ref": "#/components/schemas/mkb10"
           },
           "date_end_hosp": {
             "type": "string",
-            "description": "Дата окончания госпитализации"
+            "description": "Дата возвращения в СКО из профильной организации"
           },
           "mkb10_end": {
             "$ref": "#/components/schemas/mkb10"
