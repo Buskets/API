@@ -267,6 +267,10 @@
           "mkb10_begin": {
             "$ref": "#/components/schemas/mkb10"
           },
+          "no_information_end": {
+            "type": "boolean",
+            "description": "Признак отсутствия информации о возвращении из профильной организации (по умолчанию = false)"
+          },
           "date_end_hosp": {
             "type": "string",
             "description": "Дата возвращения в СКО из профильной организации"
@@ -283,7 +287,8 @@
         },
         "required": [
           "ticket",
-          "date_begin_hosp"
+          "date_begin_hosp",
+          "no_information_end"
         ]
       }
     }
