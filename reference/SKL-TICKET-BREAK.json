@@ -96,21 +96,10 @@
       },
       "parameters": []
     },
-    "/break-ticket/{ticket}": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "ticket",
-          "in": "path",
-          "required": true,
-          "description": "Заявка"
-        }
-      ],
+    "/ticket-break/": {
       "post": {
         "summary": "Прервать лечение",
-        "operationId": "post-break-ticket-ticket",
+        "operationId": "post-ticket-break",
         "responses": {
           "200": {
             "description": "OK",
@@ -132,7 +121,20 @@
             }
           }
         }
-      },
+      }
+    },
+    "/ticket-break/{ticketBreak}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "ticketBreak",
+          "in": "path",
+          "required": true,
+          "description": "УИ прерывания лечения"
+        }
+      ],
       "patch": {
         "summary": "Продолжить лечение",
         "operationId": "patch-break-ticket-ticket",
