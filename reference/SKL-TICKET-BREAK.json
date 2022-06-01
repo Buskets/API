@@ -235,7 +235,7 @@
       "ticketBreak": {
         "title": "Прерывание лечения",
         "type": "object",
-        "description": "Прерывание лечения (модель соответствует таблице ticket_break).\nВложить данную мождель в текущую модель талона (Ticket)",
+        "description": "Прерывание лечения (модель соответствует таблице ticket_break).\nВложить данную модель в текущую модель талона (Ticket)",
         "x-internal": false,
         "properties": {
           "id": {
